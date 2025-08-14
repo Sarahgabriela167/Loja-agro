@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgroBoi - Produtos Agropecuários</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Roboto', sans-serif; background-color: #f0f4f8; color: #333; scroll-behavior: smooth; }
+
+/* Menu fixo */
+nav { position: fixed; top:0; width: 100%; background: #2e7d32; z-index: 1000; }
+nav ul { list-style: none; display: flex; justify-content: center; padding: 15px 0; }
+nav ul li { margin: 0 15px; }
+nav ul li a { color: white; text-decoration: none; font-weight: bold; transition: color 0.3s; }
+nav ul li a:hover { color: #ffeb3b; }
+
+/* Cabeçalho */
+header { margin-top: 60px; text-align: center; padding: 60px 20px; background: linear-gradient(90deg,#388e3c,#81c784); color:white; transition: background 0.5s; }
+header h1 { font-size: 3rem; cursor: pointer; transition: transform 0.3s; }
+header h1:hover { transform: scale(1.1); }
+
+/* Barra de pesquisa */
+.search-bar { margin: 20px auto; display: flex; justify-content: center; }
+.search-bar input { padding: 10px; width: 300px; border: 2px solid #2e7d32; border-radius: 25px 0 0 25px; outline: none; }
+.search-bar button { padding: 10px; border: 2px solid #2e7d32; border-left: none; background-color: #2e7d32; color: white; font-size: 1.2rem; cursor: pointer; border-radius: 0 25px 25px 0; transition: background-color 0.3s; }
+.search-bar button:hover { background-color: #1b5e20; }
+
+/* Carrossel */
+.carousel { position: relative; width: 100%; max-width: 1200px; margin: 30px auto; overflow: hidden; border-radius: 10px; }
+.carousel-images { display: flex; transition: transform 0.5s ease; }
+.carousel-images img { width: 100%; flex-shrink: 0; }
+.carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background-color: rgba(0,0,0,0.5); border: none; color: white; font-size: 2rem; padding: 10px; cursor: pointer; border-radius: 50%; }
+.prev { left: 10px; }
+.next { right: 10px; }
+
+/* Produtos */
+.products { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; padding: 20px; max-width: 1200px; margin: auto; }
+.product-card { background-color: white; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 250px; text-align: center; padding: 15px; transition: transform 0.3s, box-shadow 0.3s; }
+.product-card:hover { transform: scale(1.05); box-shadow: 0 8px 12px rgba(0,0,0,0.2); }
+.product-card img { width: 100%; height: auto; border-radius: 10px; }
+.product-card h3 { margin: 10px 0; font-size: 1.2rem; color: #2e7d32; }
+.product-card p { color: #555; font-size: 1rem; }
+.product-card button { margin-top: 10px; padding: 8px 15px; background-color: #2e7d32; color: white; border: none; border-radius: 25px; cursor: pointer; transition: background-color 0.3s; }
+.product-card button:hover { background-color: #1b5e20; }
+
+/* Carrinho */
+.cart { position: fixed; top: 120px; right: 20px; background-color: #fff; border: 2px solid #2e7d32; padding: 10px; border-radius: 10px; max-width: 200px; }
+.cart h3 { margin-bottom: 10px; font-size: 1.1rem; color: #2e7d32; }
+.cart ul { list-style: none; }
+
+/* Footer */
+footer { background-color: #1b5e20; color: white; padding: 30px; text-align: center; }
+footer a { color: #c8e6c9; text-decoration: none; font-weight: bold; margin: 0 10px; }
+footer a:hover { text-decoration: underline; }
+.contact-form { margin-top: 20px; }
+.contact-form input, .contact-form textarea { width: 80%; padding: 10px; margin: 5px 0; border-radius: 5px; border: 1px solid #ccc; }
+.contact-form button { margin-top: 10px; padding: 10px 20px; background-color: #2e7d32; color: white; border: none; border-radius: 25px; cursor: pointer; }
+.contact-form button:hover { background-color: #1b5e20; }
+</style>
+</head>
+<body>
+
+<!-- Menu fixo -->
+<nav>
+    <ul>
+        <li><a href="#header">Início</a></li>
+        <li><a href="#products">Produtos</a></li>
+        <li><a href="#contact">Contato</a></li>
+    </ul>
+</nav>
+
+<header id="header">
+    <h1 onclick="changeHeaderColor()">🐂 AgroBoi</h1>
+</header>
+
+<div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Pesquise por produtos...">
+    <button onclick="searchProduct()">🐂</button>
+</div>
+
+<!-- Carrossel -->
+<div class="carousel">
+    <div class="carousel-images" id="carouselImages">
+        <img src="imagens/Gado-boi-vaca-31-junho-2020-assessoria-990x556-1.jpg" alt="Imagem 1">
+        <img src="imagens/images ovelha (2).jpg" alt="Imagem 2">
+        <img src="imagens/golden-retriever-1.webp" alt="Imagem 3">
+        <img src="https://via.placeholder.com/1200x400?text=Utensílios+de+Fazenda" alt="Imagem 4">
+    </div>
+    <button class="carousel-btn prev" onclick="prevSlide()">❮</button>
+    <button class="carousel-btn next" onclick="nextSlide()">❯</button>
+</div>
+
+<!-- Produtos -->
+<section class="products">
+    <div class="product-card">
+        <img src="imagens/Ração_Seca_Zuppy_Frango_e_Arroz_para_Cães_Adultos_de_Porte_Médio_e_Grande_31027516859_(1).jpg" alt="Ração Zuppy">
+        <h3>Ração Zuppy 15kg</h3>
+        <p>Marca: Zuppy</p>
+        <p class="preco">R$ 129,90</p>
+        <button onclick="addToCart('Ração Zuppy 15kg')">Adicionar ao carrinho</button>
+    </div>
+    <div class="product-card">
+        <img src="imagens/Ração_Seca_Zuppy_Frango_e_Arroz_para_Cães_Adultos_de_Porte_Médio_e_Grande_31027516859_(1).jpg" alt="Ração Premier">
+        <h3>Ração Premier 20kg</h3>
+        <p>Marca: Premier</p>
+        <p class="preco">R$ 189,90</p>
+        <button onclick="addToCart('Ração Premier 20kg')">Adicionar ao carrinho</button>
+    </div>
+    <div class="product-card">
+        <img src="imagens/img_20230310_1311011-8c11e11b2e3f8f7edb16812447853319-1024-1024.jpg" alt="Ração Bongui">
+        <h3>Ração Bongui 10kg</h3>
+        <p>Marca: Bongui</p>
+        <p class="preco">R$ 89,90</p>
+        <button onclick="addToCart('Ração Bongui 10kg')">Adicionar ao carrinho</button>
+    </div>
+    <div class="product-card">
+        <img src="imagens/Sal-Mineral-thumbnail.png" alt="Sal Mineral">
+        <h3>Sal Mineral Bovinos 25kg</h3>
+        <p>Marca: AgroSal</p>
+        <p class="preco">R$ 75,00</p>
+        <button onclick="addToCart('Sal Mineral Bovinos 25kg')">Adicionar ao carrinho</button>
+        
+    </div>
+    <div class="product-card">
+        <img src="imagens/selim-couro-926x926.jpg" alt="Selim de Couro">
+        <h3>Selim de Couro</h3>
+        <p>Marca: Cavaleiro</p>
+        <p class="preco">R$ 350,00</p>
+        <button onclick="addToCart('Selim de Couro')">Adicionar ao carrinho</button>
+    </div>
+    <div class="product-card">
+        <img src="imagens/arreio completo2cf6125832.webp" alt="Arreio Completo">
+        <h3>Arreio Completo</h3>
+        <p>Marca: AgroRural</p>
+        <p class="preco">R$ 499,90</p>
+        <button onclick="addToCart('Arreio Completo')">Adicionar ao carrinho</button>
+    </div>
+    <div class="product-card">
+        <img src="imagens/Rocadeira-Lateral-a-Gasolina-427CC-17HP-garthen-cg-4501.webp" alt="Roçadeira Lateral">
+        <h3>Roçadeira Lateral</h3>
+        <p>Marca: Trapp</p>
+        <p class="preco">R$ 1.299,00</p>
+        <button onclick="addToCart('Roçadeira Lateral')">Adicionar ao carrinho</button>
+    </div>
+    <div class="product-card">
+        <img src="imagens/bebedouro_automatico_acqua_plus_10_lt_35613_1_20230502121058.webp" alt="Bebedouro Automático">
+        <h3>Bebedouro Automático</h3>
+        <p>Marca: AquaBoi</p>
+        <p class="preco">R$ 159,90</p>
+        <button onclick="addToCart('Bebedouro Automático')">Adicionar ao carrinho</button>
+    </div>
+    <div class="product-card">
+        <img src="imagens/f5338195941c6d9b86b342b2643150b3.webp" alt="Antipulgas para Cães">
+        <h3>Antipulgas para Cães</h3>
+        <p>Marca: Bravecto</p>
+        <p class="preco">R$ 89,90</p>
+        <button onclick="addToCart('Antipulgas para Cães')">Adicionar ao carrinho</button>
+    </div>
+    <div class="product-card">
+        <img src="imagens/vermifugo-bovinoaf0065d17bccd6054936180d253420621.jpe" alt="Vermífugo Bovino">
+        <h3>Vermífugo Bovino 500ml</h3>
+        <p>Marca: Ourofino</p>
+        <p class="preco">R$ 49,90</p>
+        <button onclick="addToCart('Vermífugo Bovino 500ml')">Adicionar ao carrinho</button>
+    </div>
+    <div class="product-card">
+        <img src="imagens/luva para erdenha265015675443574ee75.webp" alt="Luva para Ordenha">
+        <h3>Luva para Ordenha (par)</h3>
+        <p>Marca: AgroSafe</p>
+        <p class="preco">R$ 19,90</p>
+        <button onclick="addToCart('Luva para Ordenha (par)')">Adicionar ao carrinho</button>
+    </div>
+    <div class="product-card">
+        <img src="imagens/comedouro-suinos-03.jpg" alt="Comedouro para Suínos">
+        <h3>Comedouro para Suínos</h3>
+        <p>Marca: Suinobras</p>
+        <p class="preco">R$ 89,00</p>
+        <button onclick="addToCart('Comedouro para Suínos')">Adicionar ao carrinho</button>
+    </div>
+    <div class="product-card">
+        <img src="imagens/raquete mata moscadc7462c6db.webp" alt="Raquete Mata Mosca">
+        <h3>Raquete Mata Mosca</h3>
+        <p>Marca: AgroZap</p>
+        <p class="preco">R$ 29,90</p>
+        <button onclick="addToCart('Raquete Mata Mosca')">Adicionar ao carrinho</button>
+    </div>
+</section>
+
+<div class="cart">
+    <h3>🛒 Carrinho</h3>
+    <ul id="cartItems"></ul>
+</div>
+
+<footer id="contact">
+    <div>
+        <p>Entre em contato: <a href="mailto:exemplo@agroboi.com">exemplo@agroboi.com</a></p>
+        <p>Redes sociais: 
+            <a href="#" target="_blank">Facebook</a> | 
+            <a href="#" target="_blank">Instagram</a> | 
+            <a href="#" target="_blank">WhatsApp</a>
+        </p>
+        <p>Reclame Aqui: <a href="https://www.reclameaqui.com.br" target="_blank">Clique aqui</a></p>
+    </div>
+
+    <div class="contact-form">
+        <h3>Formulário de Contato</h3>
+        <input type="text" id="name" placeholder="Seu nome">
+        <input type="email" id="email" placeholder="Seu email">
+        <textarea id="message" rows="4" placeholder="Sua mensagem"></textarea>
+        <button onclick="sendMessage()">Enviar</button>
+    </div>
+
+    <p>&copy; 2025 AgroBoi. Todos os direitos reservados.</p>
+</footer>
+
+<script>
+    // Cabeçalho
+    function changeHeaderColor() {
+        const header = document.getElementById('header');
+        header.style.background = header.style.background.includes('linear-gradient') ? 'green' : 'linear-gradient(90deg,#388e3c,#81c784)';
+    }
+
+    // Pesquisa
+    function searchProduct() {
+        const query = document.getElementById('searchInput').value;
+        if(query) alert('Você pesquisou por: ' + query);
+    }
+
+    // Carrossel
+    let currentIndex = 0;
+    const images = document.querySelectorAll('.carousel-images img');
+    const totalImages = images.length;
+
+    function showSlide(index) {
+        document.getElementById('carouselImages').style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    function nextSlide() { currentIndex = (currentIndex + 1) % totalImages; showSlide(currentIndex); }
+    function prevSlide() { currentIndex = (currentIndex -1 + totalImages) % totalImages; showSlide(currentIndex); }
+    setInterval(nextSlide, 4000);
+
+    // Carrinho
+    const cartItems = [];
+    function addToCart(item) {
+        cartItems.push(item);
+        const ul = document.getElementById('cartItems');
+        ul.innerHTML = cartItems.map(i => `<li>${i}</li>`).join('');
+        alert(`${item} adicionado ao carrinho!`);
+    }
+
+    // Formulário
+    function sendMessage() {
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+
+        if(name && email && message) {
+            alert(`Mensagem enviada!\nNome: ${name}\nEmail: ${email}\nMensagem: ${message}`);
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('message').value = '';
+        } else { alert('Preencha todos os campos.'); }
+    }
+</script>
+
+</body>
+</html>
+</html>
+      
+</script>
+
+</body>
+</html>
